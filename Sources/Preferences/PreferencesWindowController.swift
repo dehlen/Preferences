@@ -1,7 +1,7 @@
 import Cocoa
 
 public final class PreferencesWindowController: NSWindowController {
-	private let tabViewController = PreferencesTabViewController()
+	public let tabViewController = PreferencesTabViewController()
 
 	public init(viewControllers: [Preferenceable]) {
 		precondition(!viewControllers.isEmpty, "You need to set at least one view controller")

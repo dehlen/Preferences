@@ -1,6 +1,6 @@
 import Cocoa
 
-final class PreferencesTabViewController: NSTabViewController {
+public final class PreferencesTabViewController: NSTabViewController {
 	private var tabViewSizes = [String: CGSize]()
 
 	private func setWindowFrame(for viewController: NSViewController) {
@@ -14,7 +14,7 @@ final class PreferencesTabViewController: NSTabViewController {
 		window.animator().setFrame(frame, display: false)
 	}
 
-	override func transition(from fromViewController: NSViewController, to toViewController: NSViewController, options: NSViewController.TransitionOptions = [], completionHandler completion: (() -> Void)? = nil) {
+	override public func transition(from fromViewController: NSViewController, to toViewController: NSViewController, options: NSViewController.TransitionOptions = [], completionHandler completion: (() -> Void)? = nil) {
 		tabViewSizes[fromViewController.simpleClassName] = fromViewController.view.frame.size
 
 		NSAnimationContext.runAnimationGroup({ context in
@@ -22,5 +22,13 @@ final class PreferencesTabViewController: NSTabViewController {
 			setWindowFrame(for: toViewController)
 			super.transition(from: fromViewController, to: toViewController, options: [.crossfade, .allowUserInteraction], completionHandler: completion)
 		}, completionHandler: nil)
+	}
+	
+	public func selectTab(at index: Int) {
+		if index < tabViewItems.count {
+			selectedTabViewItemIndex = index
+		} else if tabViewItems.count > 0 {
+			selectedTabViewItemIndex = 0
+		}
 	}
 }
